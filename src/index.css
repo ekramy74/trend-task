@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  font-family: "Aspekta", sans-serif !important;
+  margin: 0;
+  padding: 0;
+}
+
+/* use viewport-relative units to cover page fully */
+body {
+  font-family: "Aspekta", sans-serif !important;
+  height: 100dvh !important;
+  width: 100vw !important;
+  background-color: #F5f5f5;
+}
+
+/* include border and padding in element width and height */
+* {
+  box-sizing: border-box;
+}
+
+/* full-sized  container that fills up the page */
+#root {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
