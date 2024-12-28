@@ -5,7 +5,7 @@ import {TaskStatus, TaskType} from "../model/taskTypes.ts";
 import {NotFound} from "./not-found/notFound.tsx";
 
 export const Tasks = () => {
-    const {filteredTasks, filter} = useSelector((state: AppState) => state.tasks)
+    const {filteredTasks, filter, task} = useSelector((state: AppState) => state.tasks)
     const handleFilterClick = (filter: TaskStatus) => {
         dispatch(setFilter(filter))
     }
@@ -41,8 +41,11 @@ export const Tasks = () => {
                             key={item?.id + index}>
                             <div className={"absolute top-4 right-5 cursor-pointer"}
                                  onClick={() => dispatch(changeTaskStatus(item.id))}>
-                                {item.status === "uncompleted" ? <FaRegCircle className={"text-black"} size={20}/> :
-                                    <FaCheckCircle className={"text-green-600"} size={20}/>}
+                                {!task &&
+
+                                    (item.status === "uncompleted" ?
+                                        <FaRegCircle className={"text-black"} size={20}/> :
+                                        <FaCheckCircle className={"text-green-600"} size={20}/>)}
                             </div>
                             <h3 className={"text-xl font-normal"}>title: <span
                                 className={"font-bold"}>{item.title}</span></h3>
@@ -52,12 +55,14 @@ export const Tasks = () => {
                             </p>
                             <div className={"mt-3 flex gap-3"}>
                                 <button
+                                    disabled={!!task}
                                     onClick={() => handleEditClick(item)}
-                                    className={`w-full px-3 py-2 border border-blue-900 bg-blue-900 text-white rounded-md font-bold`}>Edit
+                                    className={`w-full px-3 py-2 border ${task ? "border-blue-400 bg-blue-400" : "border-blue-900 bg-blue-900"} text-white rounded-md font-bold`}>Edit
                                 </button>
                                 <button
+                                    disabled={!!task}
                                     onClick={() => handleDeleteClick(item?.id)}
-                                    className={`w-full px-3 py-2 border border-red-600 text-red-600 rounded-md  font-bold`}>delete
+                                    className={`w-full px-3 py-2 border ${task ? "border-red-300 text-red-300" : "border-red-600 text-red-600"} rounded-md  font-bold`}>delete
                                 </button>
                             </div>
                         </div>

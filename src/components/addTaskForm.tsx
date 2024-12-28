@@ -11,7 +11,8 @@ export const AddTaskForm = () => {
         handleSubmit,
         formState: {errors},
         reset,
-        setValue
+        setValue,
+        clearErrors
     } = useForm<TaskType>();
     const {task, tasks} = useSelector((state: AppState) => state.tasks)
     useEffect(() => {
@@ -79,15 +80,27 @@ export const AddTaskForm = () => {
                 ></textarea>
 
             </div>
-
-            <button
-                type="submit"
-                id="submit"
-                name="send"
-                className={"py-2 px-5 font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-secondary hover:bg-secondary-hover border-secondary hover:border-secondary-hover text-white rounded-md justify-center flex items-center w-full"}
-            >
-                {task ? "Edit task" : "Add task"}
-            </button>
+            <div className={"flex gap-4"}>
+                <button
+                    type="submit"
+                    id="submit"
+                    name="send"
+                    className={"py-2 px-5 font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-secondary hover:bg-secondary-hover border-secondary hover:border-secondary-hover text-white rounded-md justify-center flex items-center w-full"}
+                >
+                    {task ? "Edit task" : "Add task"}
+                </button>
+                {task && <button
+                    name="cancel"
+                    onClick={() => {
+                        reset()
+                        dispatch(setTask(null))
+                        clearErrors()
+                    }}
+                    className={"py-2 px-5 font-semibold tracking-wide border align-middle duration-500 text-base text-center hover:bg-secondary  border-secondary hover:border-secondary-hover text-secondary hover:text-white rounded-md justify-center flex items-center w-full"}
+                >
+                    Cancel
+                </button>}
+            </div>
 
         </form>
     );
