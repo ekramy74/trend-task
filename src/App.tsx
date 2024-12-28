@@ -6,7 +6,7 @@ function App() {
 
     return (
         <>
-            <div className="container w-full bg-main py-10">
+            <div className="px-20 w-full bg-main py-10">
                 <AddTaskForm/>
             </div>
             <Tasks/>
