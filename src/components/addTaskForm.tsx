@@ -1,7 +1,7 @@
 import {useForm} from "react-hook-form";
 import {TaskType} from "../model/taskTypes.ts";
 import {AppState, dispatch, useSelector} from "../store/Store.tsx";
-import {setTasks} from "../store/Tasks/TasksSlice.ts";
+import {setTask, setTasks} from "../store/Tasks/TasksSlice.ts";
 import {useEffect} from "react";
 
 
@@ -48,6 +48,7 @@ export const AddTaskForm = () => {
         );
         console.log("edit", updatedTasks);
         dispatch(setTasks(updatedTasks));
+        dispatch(setTask(null));
         reset()
     }
 
@@ -85,7 +86,7 @@ export const AddTaskForm = () => {
                 name="send"
                 className={"py-2 px-5 font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-secondary hover:bg-secondary-hover border-secondary hover:border-secondary-hover text-white rounded-md justify-center flex items-center w-full"}
             >
-                Add task
+                {task ? "Edit task" : "Add task"}
             </button>
 
         </form>
